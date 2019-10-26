@@ -269,7 +269,10 @@ class RedisServer extends events.EventEmitter {
 
         server.process = childprocess.spawn(
           server.config.bin,
-          RedisServer.parseFlags(server.config)
+          RedisServer.parseFlags(server.config),
+          {
+            windowsVerbatimArguments: true // Do not quote the flags
+          }
         );
 
         server.process.stdout.on('data', dataListener);
